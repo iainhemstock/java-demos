@@ -1,3 +1,17 @@
+/**
+ * A BufferedReader provides an efficient way to read from a stream when reading from that stream
+ * could potentially be an expensive operation.
+ *
+ * For example, each call to read() on a stream could be accessing a filesystem or network etc.
+ *
+ * But when that stream is wrapped in a BufferedReader then the stream's data is buffered and
+ * subsequent calls to read() are accessing the internal buffer rather than the filesystem or netowrk etc.
+ *
+ * BufferedReader offers readLine() which returns a String.
+ *
+ * BuffeedReader can also return all lines as a java.util.Stream for further processing.
+ */
+
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.Reader;
