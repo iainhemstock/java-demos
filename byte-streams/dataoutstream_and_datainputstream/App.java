@@ -20,8 +20,8 @@ public class App{
 
     public App() {
 
-        try (OutputStream outputStream = new FileOutputStream("test.txt");
-                InputStream inputStream = new FileInputStream("test.txt");) {
+        try (OutputStream outputStream = new FileOutputStream("test.bin");
+                InputStream inputStream = new FileInputStream("test.bin");) {
 
             // write the byte data to the dataoutputstream
             try (DataOutputStream dos = new DataOutputStream(outputStream)) {
