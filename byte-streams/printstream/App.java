@@ -1,10 +1,16 @@
 /**
  * A PrintStream is a wrapper around another OutputStream and adds formatting functionality to it.
- * For example, instead of writing a byte at a time with OutputStream.write(byte) a PrintStream offers:
- * -- print(string)
- * -- println(string)
- * -- printf(formatString, Object ... args).
- * As well as String the print*() methods support all types including int, boolean, char, float etc.
+ *
+ * PrintStream converts data written with print*() methods into bytes which are written to the
+ * underlying byte atream.
+ *
+ * For example, instead of writing a byte at a time with OutputStream.write(byte) a PrintStream offers
+ * print*() methods that accept all primitive types as arguments including:
+ *          print(string)
+ *          println(string)
+ *          printf(formatString, Object ... args)
+ *
+ * As well as String arguments the print*() methods support all types including int, boolean, char, float etc.
  * Custom objects are supported too as its toString() is called.
  *
  * System.out and System.err are instances of PrintStream.
