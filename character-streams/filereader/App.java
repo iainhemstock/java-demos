@@ -1,6 +1,9 @@
 /**
- * A FileReader is a class that can read the contents of a file.
- * It reads the file one char at a time or by a subrange.
+ * A FileReader is a class that can read the contents of a file and is a sublass of InputStreamReader
+ * and Reader.
+ *
+ * It reads the file one char at a time or by a subrange. Through inheritance it can also read the whole
+ * file or a portion of the file into a char array.
  */
 
 import java.io.FileReader;
