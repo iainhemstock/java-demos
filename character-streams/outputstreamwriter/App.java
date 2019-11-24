@@ -1,11 +1,21 @@
 /**
  * An OutputStreamWriter is a bridge between a Writer and OutputStream.
+ *
  * A Writer typically deals with chars and strings whereas an OutputStream deals with bytes.
+ *
  * So in a scenario where text needs to be written to an OutputStream, all of the chars would need to be
  * converted into bytes before being written to the OutputStream.
+ *
  * This is the job that OutputStreamWriter does internally. It can be written to using strings
  * (or partial strings), single chars and char arrays (or partial char arrays).
+ *
  * It then internally converts its contents into bytes and writes those bytes to the OutputStream.
+ *
+ * FileWriter is a convenience class that subclasses OutputStreamWriter so instead of using the form:
+ *      new OutputStreamWriter(new FileOutputStream("*.txt"))
+ * it is possible to just use:
+ *      new FileWriter("*.txt")
+ * or any other of the various constructors FileWriter offers.
  */
 
 import java.io.OutputStreamWriter;
