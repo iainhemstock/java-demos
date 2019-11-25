@@ -69,7 +69,7 @@ public class App {
         System.out.println(isEven.test(10));
         System.out.println(isEven.test(9));
 
-        // lambda paramter types do not need to be specified as it is inferred from the interface's
+        // lambda parameter types do not need to be specified as it is inferred from the interface's
         // method signature. It doesn't cause an error to explicitly specify it though.
         NumberTest isNeg = (int n) -> n < 0;
         System.out.println(isNeg.test(10));
