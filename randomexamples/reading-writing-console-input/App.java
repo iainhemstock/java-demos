@@ -3,6 +3,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.ArrayList;
+import java.io.IOException;
 
 public class App {
     public static void main(String[] args) {
@@ -28,10 +29,7 @@ public class App {
             for (Integer i = 0; i < inputs.size(); i++) {
                 writer.printf("-- %s %n", inputs.get(i));
             }
-
         }
-        catch(Exception ex) {
-            ex.printStackTrace();
-        }
+        catch (IOException ex) { ex.printStackTrace(); }
     }
 }
