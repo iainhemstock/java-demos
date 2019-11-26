@@ -22,7 +22,9 @@
  * implementations can be written for that interface
  */
 
- import java.util.function.IntSupplier;
+import java.util.function.IntSupplier;
+import java.util.function.Function;
+import java.util.function.BiFunction;
 
 public class App {
 
@@ -38,42 +40,44 @@ public class App {
          * [1] lambda with single param
          * for single param lambdas the param parentheses are optional
          */
-        UnaryNumberFunc isEven = n -> (n % 2) == 0;
-        System.out.println(isEven.test(10));
-        System.out.println(isEven.test(9));
+        Function<Integer, Boolean> isEven = n -> (n % 2) == 0;
+        System.out.println(isEven.apply(10));
+        System.out.println(isEven.apply(9));
 
         // lambda parameter types do not need to be specified as it is inferred from the interface's
         // method signature. It doesn't cause an error to explicitly specify it though.
-        UnaryNumberFunc isNeg = (int n) -> n < 0;
-        System.out.println(isNeg.test(10));
-        System.out.println(isNeg.test(-5));
+        Function<Integer, Boolean> isNeg = (Integer n) -> n < 0;
+        System.out.println(isNeg.apply(10));
+        System.out.println(isNeg.apply(-5));
 
 
         /**
          * [2] multiple params
          * note that parentheses are necessary for multiple params
          */
-        BinaryNumberFunc isFactor = (n, d) -> (n % d) == 0;
-        System.out.println(isFactor.test(2, 5));
-        System.out.println(isFactor.test(15, 5));
+        BiFunction<Integer, Integer, Boolean> isFactor = (n, d) -> (n % d) == 0;
+        System.out.println(isFactor.apply(2, 5));
+        System.out.println(isFactor.apply(15, 5));
 
 
         /**
          * [3] a block lambda
          */
-        NumberFunc factorial = n -> {
+        Function<Integer, Integer> factorial = n -> {
             int result = 1;
             for (int i = 1; i <= n; ++i) {
                 result = i * result;
             }
             return result;
         };
-        System.out.printf("Factorial of 3 is %d %n", factorial.func(3));
-        System.out.printf("Factorial of 5 is %d %n", factorial.func(5));
+        System.out.printf("Factorial of 3 is %d %n", factorial.apply(3));
+        System.out.printf("Factorial of 5 is %d %n", factorial.apply(5));
 
 
         /**
          * [4] passing lambda as argument
+         * processString() defines a Function<String, String> interface argument which String's toUpperCase()
+         * satisfys since it takes a String and returns a String.
          */
         String inString = "hello world!";
         String outString = processString(s -> s.toUpperCase(), inString);
@@ -117,7 +121,7 @@ public class App {
      * It knows to invoke the single method of the interface but doesn't know or care what it does.
      * This way multiple different string processing routines could be supplied to this function.
      */
-    static String processString(StringFunc stringFunc, String s) {
-        return stringFunc.func(s);
+    static String processString(Function<String, String> stringFunc, String s) {
+        return stringFunc.apply(s);
     }
 }
