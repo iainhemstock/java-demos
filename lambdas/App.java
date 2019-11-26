@@ -22,56 +22,29 @@
  * implementations can be written for that interface
  */
 
+ import java.util.function.IntSupplier;
+
 public class App {
 
-    interface MyNumber {
-        double getValue();
-    }
-
-    interface NumberTest {
-        boolean test(int n);
-    }
-
-    interface NumberTest2 {
-        boolean test(int n, int d);
-    }
-
-    interface NumberFunc {
-        int func(int n);
-    }
-
-    interface StringFunc {
-        String func(String s);
-    }
-
-    interface MyConstructorFunc {
-        MyClass func(int i);
-    }
-
     public static void main(String[] args) {
-        new App();
-    }
-
-    public App () {
-
         /**
          * [0] lambda with no params
          */
-        MyNumber test = () -> 123;
-        System.out.println(test.getValue());
+        IntSupplier test = () -> 123;
+        System.out.println(test.getAsInt());
 
 
         /**
          * [1] lambda with single param
          * for single param lambdas the param parentheses are optional
          */
-        NumberTest isEven = n -> (n % 2) == 0;
+        UnaryNumberFunc isEven = n -> (n % 2) == 0;
         System.out.println(isEven.test(10));
         System.out.println(isEven.test(9));
 
         // lambda parameter types do not need to be specified as it is inferred from the interface's
         // method signature. It doesn't cause an error to explicitly specify it though.
-        NumberTest isNeg = (int n) -> n < 0;
+        UnaryNumberFunc isNeg = (int n) -> n < 0;
         System.out.println(isNeg.test(10));
         System.out.println(isNeg.test(-5));
 
@@ -80,7 +53,7 @@ public class App {
          * [2] multiple params
          * note that parentheses are necessary for multiple params
          */
-        NumberTest2 isFactor = (n, d) -> (n % d) == 0;
+        BinaryNumberFunc isFactor = (n, d) -> (n % d) == 0;
         System.out.println(isFactor.test(2, 5));
         System.out.println(isFactor.test(15, 5));
 
@@ -134,7 +107,7 @@ public class App {
            * refer to a class constructor with the form:
            *    ClassName::new
            */
-           MyConstructorFunc myClassConstructor = MyClass::new;
+           ConstructorFunc myClassConstructor = MyClass::new;
            MyClass myClass = myClassConstructor.func(100);
            System.out.println(myClass.toString());
     }
@@ -144,7 +117,7 @@ public class App {
      * It knows to invoke the single method of the interface but doesn't know or care what it does.
      * This way multiple different string processing routines could be supplied to this function.
      */
-    private String processString(StringFunc stringFunc, String s) {
+    static String processString(StringFunc stringFunc, String s) {
         return stringFunc.func(s);
     }
 }
