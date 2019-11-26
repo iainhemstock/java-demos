@@ -39,6 +39,7 @@ public class App {
         /**
          * [1] lambda with single param
          * for single param lambdas the param parentheses are optional
+         * the interface defines a function that receives an Integer argument and returns a Boolean
          */
         Function<Integer, Boolean> isEven = n -> (n % 2) == 0;
         System.out.println(isEven.apply(10));
