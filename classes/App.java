@@ -1,6 +1,8 @@
 //==============================================================================================
+// Nested classes are divided into two categories: static and non-static. A nested class that is
+// declared as static is called a static nested class and a nested class that is non-static is
+// called an inner class.
 // A nested class is not independent of its enclosing class.
-// A nested class can be static or non-static.
 // A nested class can be declared as a member of its enclosing class or within any block scope such
 // as a for loop etc.
 //==============================================================================================
@@ -37,9 +39,9 @@ public class App {
         // innerString.toUpperCase(); // compile-time error: cannot directly access member of inner class
         staticClass.innerString.toUpperCase(); // access public members through object instead
 
-        NonStaticClass nonStaticClass = new NonStaticClass();
+        InnerClass innerClass = new InnerClass();
         // innerInt += 0; // compile-time error: cannot directly access member of inner class
-        nonStaticClass.innerInt += 0; // access public members through object instead
+        innerClass.innerInt += 0; // access public members through object instead
 
         Runnable myRunnable = new MyRunnable();
         myRunnable.run();
@@ -74,11 +76,15 @@ public class App {
     //==============================================================================================
     // Non-static nested class (inner class) has direct access to static and non-static members of
     // its enclosing class.
+    // An inner class cannot have static members.
+    // An inner class cannot exist independently of its outer class. The outer class must be created
+    // before the inner class can be created. 
     //==============================================================================================
-    class NonStaticClass {
+    class InnerClass {
         int innerInt = 84;
+        // static String not_allowed = ""; // compile-time error
 
-        NonStaticClass() {
+        InnerClass() {
             answer += 0; // non-static member
             question = question.toUpperCase(); // static member
 
@@ -116,6 +122,14 @@ public class App {
     }
 
     public static void main(String[] args) {
-        new App();
+        App app = new App();
+
+        // instantiating static nested class
+        // accessed through enclosing class type
+        App.StaticNestedClass staticClass = new App.StaticNestedClass(app);
+
+        // instantiating non-static nested class
+        // accessed though instance variable
+        App.InnerClass innerClass = app.new InnerClass();
     }
 }
