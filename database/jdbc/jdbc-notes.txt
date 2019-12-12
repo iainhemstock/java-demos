@@ -1,0 +1,44 @@
+JDBC
+
+Java Database Connectivity provides a standard API for connecting to, executing sql statements and
+processing results with a relational database. This means that JDBC is database independent and that
+a MySQL datasource could be switched out for a PostgreSQL datasource with a minimal amount of changes
+to the client code.
+
+JDBC is comprised of four core components: JDBC drivers, Connections, Statements and ResultSets.
+
+Each database type will have its own driver i.e. MySQL driver is different to the PostgreSQL driver.
+Typically the database vendors themselves write the JDBC driver for their particular database.
+
+Prior to Java 6 it was necessary to load the JDBC driver before using it:
+        Class.forName("com.mysql.jdbc.Driver");
+
+The DriverManager provides a Connection when provided with a datasource url and username/password
+credentials. All communication with a database occurs through the Connection.
+
+A Statement (or PreparedStatement) is obtained from the Connection. This Statement executes a SQL
+string statement which returns a ResultSet. Queries are made by calling executeQuery(sql) and updates
+are made by calling executeUpdate(sql).
+
+The difference between a Statement and a PreparedStatement is that a Statement represents a finished
+sql statement (hard coded):
+        select * from users where id = 6
+whereas a PreparedStatement contains parameters meaning it can be reused:
+        select * from users where id = ?
+
+Statements represent a single query or update however Statements can be grouped together in a
+transaction. Here either all statements are executed or none of them are.
+
+The ResultSet is comprised of a set of result rows from the database. It can be traversed through by
+calling next() to retrieve each successive result row. ResultSet can retrieve an individual value
+with get*(colName) or get*(colIndex) where * is a primitive type. Examples are getInt(),
+getString(), getBoolean() etc. A column index can be found from its name with findColumn(colName).
+
+A Connection, Statement and ResultSet needs to be closed when finished with. They can be closed
+explicitly with close() or automatically closed when created within try-with-resources statements.
+
+By default a JDBC driver is in auto-commit mode which means that it will commit after every update
+to the database as if executed within its own transaction. Setting auto-commit to false prevents
+this from happening and requires an explicit call to Connection.commit() as and when the actual
+commit is desired. If an SQLException is thrown after committing then the exception handling can call
+rollback() to undo the previously executed Statements within the current transaction.
